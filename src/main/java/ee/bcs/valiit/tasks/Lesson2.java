@@ -1,15 +1,43 @@
 package ee.bcs.valiit.tasks;
 
+import java.util.Arrays;
+
 public class Lesson2 {
 
     public static void main(String[] args) {
-        // TODO siia saab kirjutada koodi testimiseks
+
+        int[] myArray = new int[]{1, 8, 9, 5, 6};
+
+        System.out.println(Arrays.toString(reverseArray(myArray)));
+
+        System.out.println("Array of doubles: " + Arrays.toString(evenNumbers(8)));
+
+        System.out.println("min on: " + min(myArray));
+        System.out.println("max on: " + max(myArray));
+        System.out.println("sum on: " + sum(myArray));
+
+        multiplyTable(4, 4);
+
+        System.out.println(fibonacci(4));
+
+        System.out.println(sequence3n(10, 20));
+
+
     }
 
     // TODO loe funktsiooni sisendiks on täisarvude massiiv
     // TODO tagasta massiiv mille elemendid on vastupidises järiekorras
     public static int[] reverseArray(int[] inputArray) {
-        return new int[1];
+        int[] outputArray = inputArray.clone();
+        int last = outputArray.length - 1;
+        int middle = outputArray.length / 2;
+        for (int i = 0; i < middle; i++) {
+            int temp = outputArray[i];
+            outputArray[i] = outputArray[last - i];
+            outputArray[last - i] = temp;
+        }
+
+        return outputArray;
     }
 
     // TODO tagasta massiiv mis sisaldab n esimest paaris arvu
@@ -17,22 +45,42 @@ public class Lesson2 {
     // Sisend 5
     // Väljund 2 4 6 8 10
     public static int[] evenNumbers(int n) {
-        return new int[1];
+        int[] arrOfDbl = new int[n];
+        for (int i = 0; i < n; i++) {
+            arrOfDbl[i] = (i + 1) * 2;
+        }
+        return arrOfDbl;
     }
 
     // TODO, leia massiivi kõige väiksem element
-    public static int min(int[] x){
-        return 0;
+    public static int min(int[] x) {
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < x.length; i++) {
+            if (x[i] < min) {
+                min = x[i];
+            }
+        }
+        return min;
     }
 
     // TODO, leia massiivi kõige suurem element
-    public static int max(int[] x){
-        return 0;
+    public static int max(int[] x) {
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < x.length; i++) {
+            if (x[i] > max) {
+                max = x[i];
+            }
+        }
+        return max;
     }
 
     // TODO, leia massiivi kõigi elementide summa
-    public static int sum(int[] x){
-        return 0;
+    public static int sum(int[] x) {
+        int sum = 0;
+        for (int i = 0; i < x.length; i++) {
+            sum = sum + x[i];
+        }
+        return sum;
     }
 
     // TODO trüki välja korrutustabel mis on x ühikut lai ja y ühikut kõrge
@@ -48,7 +96,18 @@ public class Lesson2 {
     //  et saada taebli kuju
     // TODO 5 võrdle ridu. Kas on mingi seaduspärasus ridade vahel,
     // mis on ja mis võiks olla. Äkki tuleb mõni idee
+
     public static void multiplyTable(int x, int y) {
+        int[][] multiplyTable = new int[x][y];
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                multiplyTable[i][j] = (i + 1) * (j + 1);
+                System.out.print(multiplyTable[i][j] + "\t");
+
+            }
+            System.out.println();
+            //break; et oleks ainult esimene rida
+        }
 
     }
 
@@ -57,9 +116,33 @@ public class Lesson2 {
     // 0, 1, 1, 2, 3, 5, 8, 13, 21
     // Tagasta fibonacci jada n element. Võid eeldada, et n >= 0
     public static int fibonacci(int n) {
+        if (n <= 1)
+            return n;
+        return fibonacci(n - 1) + fibonacci(n - 2);
 
-        return 0;
     }
+
+    // Fibonacci jada on fib(n) = fib(n-1) + fib(n-2);
+    // 0, 1, 1, 2, 3, 5, 8, 13, 21
+    // Tagasta fibonacci jada n element. Võid eeldada, et n >= 0
+    public static int fib(int n) {
+        int a = 0;
+        int b = 1;
+        int c;
+        if (n == 0) {
+            return a;
+        }
+        if (n == 1) {
+            return b;
+        }
+        for (int i = 2; i <= n; i++) {
+            c = a + b;
+            a = b;
+            b = c;
+        }
+        return b;
+    }
+
 
     // TODO
     // Kujutame ette numbrite jada, kus juhul kui number on paaris arv siis me jagame selle 2-ga
@@ -77,7 +160,28 @@ public class Lesson2 {
     // Näiteks sisendi 10 ja 20 puhul on vastus 20
 
     public static int sequence3n(int x, int y) {
-        return 0;
+
+        int maxSequence = 0;
+
+        for (int i = x; i <= y; i++) {
+            int numberOfActions = 0;
+            int result = i;
+            while (result >= 1) {
+                if (result == 1) {
+                    break;
+                } else if (result % 2 == 0) {
+                    result = result / 2;
+                    numberOfActions++;
+                } else {
+                    result = (3 * result) + 1;
+                    numberOfActions++;
+                }
+            }
+            if (numberOfActions > maxSequence) {
+                maxSequence = numberOfActions;
+            }
+        }
+        return maxSequence;
     }
 
 
