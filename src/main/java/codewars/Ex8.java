@@ -3,7 +3,7 @@ package codewars;
 
 import java.util.Locale;
 
-public class ex8 {
+public class Ex8 {
 
     public static void main(String[] args) {
 

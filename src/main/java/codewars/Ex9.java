@@ -2,7 +2,7 @@ package codewars;
 
 import java.util.*;
 
-public class ex9 {
+public class Ex9 {
 
     public static int[] deleteNth(int[] elements, int maxOccurrences) {
 

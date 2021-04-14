@@ -1,6 +1,6 @@
 package codewars;
 
-public class ex2 {
+public class Ex2 {
 
 
 

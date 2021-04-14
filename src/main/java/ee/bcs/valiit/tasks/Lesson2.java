@@ -1,5 +1,8 @@
 package ee.bcs.valiit.tasks;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 import java.util.Arrays;
 
 public class Lesson2 {
@@ -97,7 +100,7 @@ public class Lesson2 {
     // TODO 5 võrdle ridu. Kas on mingi seaduspärasus ridade vahel,
     // mis on ja mis võiks olla. Äkki tuleb mõni idee
 
-    public static void multiplyTable(int x, int y) {
+    public static int[][] multiplyTable(int x, int y) {
         int[][] multiplyTable = new int[x][y];
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
@@ -108,6 +111,7 @@ public class Lesson2 {
             System.out.println();
             //break; et oleks ainult esimene rida
         }
+        return multiplyTable;
 
     }
 
@@ -142,6 +146,8 @@ public class Lesson2 {
         }
         return b;
     }
+
+
 
 
     // TODO

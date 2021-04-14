@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Lesson2b {
     public static void main(String[] args) {
 
-        exercise1(5);
+        System.out.println(Arrays.toString(exercise1(5)));
         System.out.println("Näidis massiv" + Arrays.toString(sampleArray()));
         System.out.println();
         System.out.println("Genereeritud massiiv" + Arrays.toString(generateArray(8)));
@@ -21,10 +21,13 @@ public class Lesson2b {
     // näiteks
     // sisend: 5
     // trüki välja: 1 2 3 4 5
-    public static void exercise1(int n) {
+    public static int[] exercise1(int n) {
+        int[] array=new int[n];
         for (int i = 1; i <= n; i++) {
-            System.out.println(i);
+            array[i-1]=i;
+
         }
+        return array;
     }
 
     // TODO tagasta massiiv milles oleks numbrid 1,2,3,4,5
