@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Random;
 
 @RestController
-public class Controller {
+public class RandomController {
     Random random = new Random();
     int randomNumber = random.nextInt(100);
     int count=0;
