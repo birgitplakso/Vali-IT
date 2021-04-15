@@ -20,6 +20,8 @@ public class Enough {
         System.out.println(resultList);
     }
 
+
+
     public static boolean canAdd(int[] input, int i, int n) {
         int nr = input[i];
         Integer count = countMap.get(nr);

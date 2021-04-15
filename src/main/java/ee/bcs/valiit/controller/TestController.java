@@ -45,7 +45,7 @@ public class TestController {
     }
 
     //GetMapping tuleb lisada meetodi ette
-    @GetMapping("sample/hello-world/{nameInUrl}") //see aadress tuleb lisada veebi: localhost:8080/ sample/hello-world
+    @GetMapping("hello-world/{nameInUrl}") //see aadress tuleb lisada veebi: localhost:8080/ sample/hello-world
     public static String helloWorld(@PathVariable("nameInUrl") String name, @RequestParam("action") String a){
         return a+" "+name;
 
