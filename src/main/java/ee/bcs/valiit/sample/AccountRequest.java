@@ -1,14 +1,27 @@
 package ee.bcs.valiit.sample;
 
 public class AccountRequest {
+    private String ownerName;
     private String accountNumber;
     private double amount;
+    private boolean isBlocked=false;
 
     public AccountRequest() {
     }
 
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
     public String getAccountNumber() {
-        return accountNumber;
+        if(!isBlocked){
+            return accountNumber;
+        }
+        return null;
     }
 
     public void setAccountNumber(String accountNumber) {
@@ -16,10 +29,25 @@ public class AccountRequest {
     }
 
     public double getAmount() {
-        return amount;
+        if(!isBlocked){
+            return amount;
+        }
+        return -1;
     }
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
+
+    public void blockAccount(){
+        isBlocked=true;
     }
 }
