@@ -29,7 +29,7 @@ public class BankController {
     public static String getBalance(@PathVariable("accountNr") String accountNr) {
         AccountRequest accountRequest=accounts.get(accountNr);
         double balance=accountRequest.getAmount();
-        if(balance<0){
+        if(accountRequest.isBlocked()){
             return "Account is blocked!";
         }
         return "Your balance is " +balance;
@@ -40,7 +40,7 @@ public class BankController {
         if (accountRequest.getAmount() > 0) {
             AccountRequest customerData = accounts.get(accountRequest.getAccountNumber());
             double balance=customerData.getAmount();
-            if(balance<0){ // blocked account has value -1;
+            if(customerData.isBlocked()){
                 return "Account is blocked!";
             }else{
                 balance = balance + accountRequest.getAmount();
@@ -59,7 +59,7 @@ public class BankController {
         if (accountRequest.getAmount() > 0) {
             AccountRequest customerData = accounts.get(accountRequest.getAccountNumber());
             double balance=customerData.getAmount();
-            if(balance<0){ // blocked account has value -1;
+            if(customerData.isBlocked()){
                 return "Account is blocked!";
             }else if(balance >= accountRequest.getAmount()) {
                 balance = balance - accountRequest.getAmount();
@@ -79,7 +79,7 @@ public class BankController {
                                   @RequestBody AccountRequest accountRequest) {
         AccountRequest firstCustomerData = accounts.get(firstAccountNr);
         double firstAccountBalance = firstCustomerData.getAmount();
-        if(firstAccountBalance<0){
+        if(firstCustomerData.isBlocked()){
             return "The account you want to transfer from, is blocked!";
         }
         else if (firstAccountBalance >= accountRequest.getAmount()) {
@@ -90,7 +90,7 @@ public class BankController {
             AccountRequest secondCustomerData = accounts.get(accountRequest.getAccountNumber());
             double secondAccountBalance = secondCustomerData.getAmount();
 
-            if(secondAccountBalance<0){ //account value -1 means blocked account
+            if(secondCustomerData.isBlocked()){ //account value -1 means blocked account
                 return "The account you want to transfer to, is blocked!";
             }
             secondAccountBalance = secondAccountBalance + accountRequest.getAmount();

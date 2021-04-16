@@ -43,9 +43,6 @@ public class AccountRequest {
         return isBlocked;
     }
 
-    public void setBlocked(boolean blocked) {
-        isBlocked = blocked;
-    }
 
     public void blockAccount(){
         isBlocked=true;
