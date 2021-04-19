@@ -18,10 +18,7 @@ public class AccountRequest {
     }
 
     public String getAccountNumber() {
-        if(!isBlocked){
             return accountNumber;
-        }
-        return null;
     }
 
     public void setAccountNumber(String accountNumber) {
@@ -29,10 +26,7 @@ public class AccountRequest {
     }
 
     public double getAmount() {
-        if(!isBlocked){
             return amount;
-        }
-        return -1;
     }
 
     public void setAmount(double amount) {
@@ -43,6 +37,9 @@ public class AccountRequest {
         return isBlocked;
     }
 
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
 
     public void blockAccount(){
         isBlocked=true;
