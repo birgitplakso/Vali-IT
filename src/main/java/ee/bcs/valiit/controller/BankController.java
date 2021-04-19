@@ -281,7 +281,7 @@ public class BankController {
 
         public TransactionData mapRow(ResultSet resultSet, int i) throws SQLException {
             TransactionData returnData = new TransactionData();
-            returnData.setAccountNumber(resultSet.getString("account_balance"));
+            returnData.setAccountNumber(resultSet.getString("account_number"));
             returnData.setAccountBalance(resultSet.getDouble("account_balance"));
             returnData.setTransferTime(resultSet.getObject("transfer_time", LocalDateTime.class));
 
