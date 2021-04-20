@@ -24,7 +24,10 @@ public class SampleBankController {
     public void createAccount(@RequestParam("accountNr") String accountNr,
                               @RequestParam("balance") Double balance) {
         sampleBankService.createAccount(accountNr, balance);
+
     }
+
+
 
     // http://localhost:8080/sample/bank/account
     @PostMapping("sample/bank/account")
