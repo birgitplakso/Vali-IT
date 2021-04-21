@@ -4,6 +4,34 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
+    <changeSet id="1" author="Birgit">
+        <createTable tableName="bank_table">
+            <column name="customer_id" type="integer" autoIncrement="true"/>
+            <column name="account_number" type="text" >
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="customer_name" type="text">
+                <constraints notNullConstraintName="true"/>
+            </column>
+            <column name="account_balance" type="numeric"/>
+            <column name="is_blocked" type="boolean"/>
+        </createTable>
+
+        <createTable tableName="transaction_history">
+            <column name="id" type="integer" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="account_number" type="text" >
+                <constraints nullable="false"
+                             foreignKeyName="account_number"
+                             references="bank_table(account_number)"/>
+            </column>
+            <column name="account_balance" type="double precision"/>
+            <column name="transfer_time" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+
     <changeSet id="1" author="Siim">
         <createTable tableName="author">
             <column name="id" type="int" autoIncrement="true">
