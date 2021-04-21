@@ -4,6 +4,8 @@ package ee.bcs.valiit.solution.service;
 import ee.bcs.valiit.sample.AccountRequest;
 import ee.bcs.valiit.sample.AccountRequestRowMapper;
 import ee.bcs.valiit.sample.TransactionData;
+import ee.bcs.valiit.solution.exception.SampleApplicationException;
+import ee.bcs.valiit.solution.exception.SampleErrorHandler;
 import ee.bcs.valiit.solution.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class BankAccountService {
     public AccountRepository accountRepository;
 
     public void createAccount(AccountRequest accountRequest) {
+        if(accountRequest.getAccountNumber()==null || accountRequest.getAmount()<0){
+            throw new SampleApplicationException("");
+        }
         accountRepository.createAccount(accountRequest);
         accountRepository.saveTransaction(accountRequest.getAccountNumber(), accountRequest.getAmount());
 
