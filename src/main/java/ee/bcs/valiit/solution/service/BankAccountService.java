@@ -23,7 +23,7 @@ public class BankAccountService {
 
     public void createAccount(AccountRequest accountRequest) {
         if(accountRequest.getAccountNumber()==null || accountRequest.getAmount()<0){
-            throw new SampleApplicationException("");
+            throw new SampleApplicationException("Error, insert valid data");
         }
         accountRepository.createAccount(accountRequest);
         accountRepository.saveTransaction(accountRequest.getAccountNumber(), accountRequest.getAmount());
@@ -31,23 +31,36 @@ public class BankAccountService {
     }
 
     public void blockAccount(AccountRequest accountRequest){
+        boolean dbBlocked= accountRepository.isBlocked(accountRequest.getAccountNumber());
+        if (dbBlocked) {
+            throw new SampleApplicationException("Error, account is already blocked");
+        }
         accountRepository.blockAccount(accountRequest);
     }
 
     public void unBlockAccount(AccountRequest accountRequest){
+        boolean dbBlocked= accountRepository.isBlocked(accountRequest.getAccountNumber());
+        if (!dbBlocked) {
+            throw new SampleApplicationException("Error, account is not blocked");
+        }
         accountRepository.unBlockAccount(accountRequest);
     }
 
     public double getBalance(String accountNr){
+        if(accountNr==null){
+            throw new SampleApplicationException("Error, insert valid data");
+        }
          return accountRepository.getBalance(accountNr);
     }
 
     public String depositMoney(AccountRequest accountRequest){
-        if (accountRequest.getAmount() > 0) {
+        if(accountRequest.getAmount()<0){
+            throw new SampleApplicationException("Error, insert valid data");
+        }else {
             double dbBalance=accountRepository.getBalance(accountRequest.getAccountNumber());
             boolean dbBlocked= accountRepository.isBlocked(accountRequest.getAccountNumber());
             if (dbBlocked) {
-                return "Account is blocked!";
+                throw new SampleApplicationException("Error, blocked account");
             } else {
                 dbBalance = dbBalance + accountRequest.getAmount();
                 accountRepository.setNewBalance(accountRequest.getAccountNumber(),dbBalance);
@@ -55,17 +68,17 @@ public class BankAccountService {
 
                 return "New balance is: " + dbBalance;
             }
-        } else {
-            return "Invalid amount";
         }
     }
 
     public String withdrawMoney(AccountRequest accountRequest){
-        if (accountRequest.getAmount() > 0) {
+        if(accountRequest.getAmount()<0){
+            throw new SampleApplicationException("Error, insert valid amount");
+        }else{
             Double dbBalance= accountRepository.getBalance(accountRequest.getAccountNumber());
             Boolean dbBlocked = accountRepository.isBlocked(accountRequest.getAccountNumber());
             if (dbBlocked) {
-                return "Account is blocked!";
+                throw new SampleApplicationException("Error, blocked account");
             } else if (dbBalance >= accountRequest.getAmount()) {
                 dbBalance = dbBalance - accountRequest.getAmount();
                 accountRepository.setNewBalance(accountRequest.getAccountNumber(), dbBalance);
@@ -73,10 +86,8 @@ public class BankAccountService {
                 return " " + accountRequest.getAmount() + " is withdrawn from "
                         + accountRequest.getAccountNumber() + ", new balance is: " + dbBalance;
             } else {
-                return "Not enough money on account";
+                throw new SampleApplicationException("Error, insert valid amount");
             }
-        } else {
-            return "Invalid amount";
         }
     }
 
@@ -85,7 +96,7 @@ public class BankAccountService {
         Boolean dbBlocked1 =accountRepository.isBlocked(firstAccNo);
         Boolean dbBlocked2 = accountRepository.isBlocked(accountRequest.getAccountNumber());
         if (dbBlocked1 || dbBlocked2) {
-            return "Blocked account, can't proceed with transaction!";
+            throw new SampleApplicationException("Error, blocked account");
         } else if (dbFirstAccBalance >= accountRequest.getAmount()) {
 
             dbFirstAccBalance = dbFirstAccBalance - accountRequest.getAmount();
@@ -102,7 +113,7 @@ public class BankAccountService {
             return accountRequest.getAmount() + " is transferred from " + firstAccNo +
                     " to " + accountRequest.getAccountNumber();
         } else {
-            return "Not enough money on account nr: " + firstAccNo;
+            throw new SampleApplicationException("Error, insert valid amount");
         }
     }
 
