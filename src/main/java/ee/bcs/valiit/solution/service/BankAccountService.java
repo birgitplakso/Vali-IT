@@ -6,6 +6,7 @@ import ee.bcs.valiit.sample.AccountRequestRowMapper;
 import ee.bcs.valiit.sample.TransactionData;
 import ee.bcs.valiit.solution.exception.SampleApplicationException;
 import ee.bcs.valiit.solution.exception.SampleErrorHandler;
+import ee.bcs.valiit.solution.hibernate.HibernateAccountRepository;
 import ee.bcs.valiit.solution.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class BankAccountService {
 
     @Autowired
     public AccountRepository accountRepository;
+
+    @Autowired
+    private HibernateAccountRepository hibernateAccountRepository;
 
     public void createAccount(AccountRequest accountRequest) {
         if(accountRequest.getAccountNumber()==null || accountRequest.getAmount()<0){
@@ -50,7 +54,9 @@ public class BankAccountService {
         if(accountNr==null){
             throw new SampleApplicationException("Error, insert valid data");
         }
-         return accountRepository.getBalance(accountNr);
+        return hibernateAccountRepository.getOne(accountNr).getAccountBalance();
+
+         //return accountRepository.getBalance(accountNr);
     }
 
     public String depositMoney(AccountRequest accountRequest){

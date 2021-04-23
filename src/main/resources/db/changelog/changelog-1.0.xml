@@ -61,4 +61,9 @@
             <column name="phone" type="text"/>
         </createTable>
     </changeSet>
+
+    <changeSet id="2" author="Birgit">
+        <dropColumn tableName="bank_table" columnName="customer_id"/>
+    </changeSet>
+
 </databaseChangeLog>

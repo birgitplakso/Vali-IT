@@ -1,15 +1,19 @@
 body{
-    background-color: rgba(241, 226, 226, 0.85);
+    background-color: rgb(220, 248, 248);
 }
-h1{
-    color: darkviolet;
-    font-size: xxx-large;
-    font-family: "Blackadder ITC";
+h3{
+    color: #7154f5;
+    font-size: large;
+    font-family: "Arial Nova Cond";
 }
-p{
-    color: darkblue;
+th{
+    color: #e01bd7;
 }
 
-dl{
-    color: darkviolet;
+button{
+    color: #4c1067;
+    font-max-size: large;
+}
+p{
+    color: #610572;
 }
