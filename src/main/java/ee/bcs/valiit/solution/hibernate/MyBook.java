@@ -2,8 +2,8 @@ package ee.bcs.valiit.solution.hibernate;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "book")
+//@Entity
+//@Table(name = "book")
 public class MyBook {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
