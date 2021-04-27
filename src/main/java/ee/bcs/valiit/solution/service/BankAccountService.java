@@ -54,9 +54,7 @@ public class BankAccountService {
         if(accountNr==null){
             throw new SampleApplicationException("Error, insert valid data");
         }
-        return hibernateAccountRepository.getOne(accountNr).getAccountBalance();
-
-         //return accountRepository.getBalance(accountNr);
+        return accountRepository.getBalance(accountNr);
     }
 
     public String depositMoney(AccountRequest accountRequest){

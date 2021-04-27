@@ -26,6 +26,7 @@ public class BankController {
 
 
     // http://localhost:8080/createBankAccount
+    @CrossOrigin //seda on vaja selleks, et saaksime oma koodi minna vaatama html'ist otse neti ikooniga (local url)
     @PostMapping("/createBankAccount")
     public String createAccount(@RequestBody AccountRequest accountRequest) {
         bankAccountService.createAccount(accountRequest);
@@ -76,9 +77,9 @@ public class BankController {
         return bankAccountService.getAllAccounts();
     }
 
-    @GetMapping("listOfTransactions")
-    public List<TransactionData> getTransactions(@RequestBody TransactionData transactionData) {
-        return bankAccountService.getTransactions(transactionData.getAccountNumber());
+    @GetMapping("listOfTransactions/{accountNr}")
+    public List<TransactionData> getTransactions(@PathVariable("accountNr") String accountNr) {
+        return bankAccountService.getTransactions(accountNr);
     }
 
 

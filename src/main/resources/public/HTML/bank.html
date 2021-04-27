@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>BankApplication</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="../CSS/myStyle.css">
+ </head>
+ <body>
+ <div class="container-fluid text-center">
+     <h1>Welcome To The Bank of Estonia</h1>
+
+ </div>
+
+
+ <div class="jumbotron text-center">
+ <h3> Create Account </h3>
+ <!-- Optional JavaScript; choose one of the two! -->
+<!-- Option 1: Bootstrap Bundle with Popper -->
+ </div>
+ <div class="container">
+     <div class="row">
+         <div class="col-sm-4">
+<h5> Insert data: </h5>
+<table>
+    <tr>
+        <th>Customer name: </th>
+        <td><label>
+            <input id="customerName">
+        </label></td>
+    </tr>
+    <tr>
+        <th> Account number: </th>
+        <td><label>
+            <input id="accountNumber">
+        </label></td>
+    </tr>
+    <tr>
+        <th> Initial balance: </th>
+        <td><label>
+            <input id="balance">
+        </label></td>
+    </tr>
+</table>
+<button id="createAccountButton"> Create account</button>
+         </div>
+     </div>
+ </div>
+<script>
+    let customerName = document.getElementById("customerName");
+    let accountNumber = document.getElementById("accountNumber");
+    let balance = document.getElementById("balance");
+    let createButton = document.getElementById("createAccountButton");
+    createButton.onclick = function () {
+        let requestObject = {
+            'ownerName': customerName.value,
+            'accountNumber': accountNumber.value,
+            'amount': balance.value,
+            'isBlocked': false
+        }
+        let url = "http://localhost:8080/createBankAccount";
+        let configuration = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url, configuration)
+            .then(response => response.text())
+            .then(function (response) { // selle asemel ma võiksin kirjutada response => alert(response)
+                alert(response)
+            })
+    }
+</script>
+
+ <div class="jumbotron text-center">
+<h3> Get account balance </h3>
+ </div>
+ <div class="container">
+     <div class="row">
+         <div class="col-sm-4">
+<h5> Insert an account number to see the balance: </h5>
+<table>
+    <tr>
+        <th>Account number:</th>
+        <td><label>
+            <input id="accountNumberBalance">
+        </label></td>
+    </tr>
+</table>
+<button id="getBalance"> Get balance</button>
+             <p><span id="accBalance" ></span></p>
+         </div>
+     </div>
+ </div>
+<script>
+    let accountNumberBalance = document.getElementById("accountNumberBalance");
+    let getBalanceButton = document.getElementById("getBalance");
+    let returnBalance=document.getElementById("accBalance")
+    getBalanceButton.onclick = function () {
+        fetch("http://localhost:8080/getAccountBalance/" + accountNumberBalance.value)
+            .then(response => response.text())
+            .then(function(response){
+                returnBalance.innerText=response
+                }
+                //alert(response)
+        )
+    }
+</script>
+
+ <div class="jumbotron text-center">
+<h3> Block account </h3>
+ </div>
+ <div class="container">
+     <div class="row">
+         <div class="col-sm-4">
+<h5> Insert account number you want to block: </h5>
+<table>
+    <tr>
+        <th>Account number:</th>
+        <td><label>
+            <input id="blockAccountNumber">
+        </label></td>
+    </tr>
+</table>
+<button id="block"> Block</button>
+         </div>
+     </div>
+ </div>
+<script>
+    let blockAccountNumber = document.getElementById("blockAccountNumber")
+    let blockAccountButton = document.getElementById("block");
+    blockAccountButton.onclick = function () {
+        let requestObject = {
+            'accountNumber': blockAccountNumber.value,
+        }
+        let url = "http://localhost:8080/blockAccount";
+        let configuration = {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url, configuration)
+            .then(response => response.text())
+            .then(response => alert(response))
+    }
+</script>
+
+ <div class="jumbotron text-center">
+<h3> Unblock account </h3>
+ </div>
+ <div class="container">
+     <div class="row">
+         <div class="col-sm-4">
+<h5> Insert account number you want to unblock: </h5>
+<table>
+    <tr>
+        <th>Account number:</th>
+        <td><label>
+            <input id="unBlockAccountNr">
+        </label></td>
+    </tr>
+</table>
+<button id="unBlock"> Unblock</button>
+         </div>
+     </div>
+ </div>
+<script>
+    let unBlockAccountNr = document.getElementById("unBlockAccountNr");
+    let unBlockAccountButton = document.getElementById("unBlock");
+    unBlockAccountButton.onclick = function () {
+        let requestObject = {
+            'accountNumber': unBlockAccountNr.value,
+        }
+        let url = "http://localhost:8080/unBlockAccount";
+        let configuration = {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url, configuration)
+            .then(response => response.text())
+            .then(response => alert(response))
+    }
+</script>
+ <div class="jumbotron text-center">
+<h3> Deposit </h3>
+ </div>
+ <div class="container">
+     <div class="row">
+         <div class="col-sm-4">
+<h5> Insert data to deposit money: </h5>
+<table>
+    <tr>
+        <th>Account number:</th>
+        <td><label>
+            <input id="depositAccNr">
+        </label></td>
+        <th>Amount:</th>
+        <td><label>
+            <input id="depositAmount">
+        </label></td>
+    </tr>
+</table>
+<button id="depositButton"> Deposit</button>
+         </div>
+     </div>
+ </div>
+<script>
+    let depositAccNr = document.getElementById("depositAccNr");
+    let depositAmount = document.getElementById("depositAmount");
+    let depositButton = document.getElementById("depositButton");
+    depositButton.onclick = function () {
+        let requestObject = {
+            'accountNumber': depositAccNr.value,
+            'amount': depositAmount.value
+        }
+        let url = "http://localhost:8080/deposit";
+        let configuration = {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url, configuration)
+            .then(response => response.text())
+            .then(response => {
+                alert(response)
+                depositAccNr.value="";
+                depositAmount.value="";
+            })
+    }
+</script>
+
+ <div class="jumbotron text-center">
+<h3> Withdraw </h3>
+ </div>
+ <div class="container">
+     <div class="row">
+         <div class="col-sm-4">
+<h5> Insert data to withdraw money: </h5>
+<table>
+    <tr>
+        <th>Account number:</th>
+        <td><label>
+            <input id="withdrawAccNr">
+        </label></td>
+        <th>Amount:</th>
+        <td><label>
+            <input id="withdrawAmount">
+        </label></td>
+    </tr>
+</table>
+<button id="withdrawButton"> Withdraw</button>
+         </div>
+     </div>
+ </div>
+
+<script>
+    let withdrawAccNr = document.getElementById("withdrawAccNr");
+    let withdrawAmount = document.getElementById("withdrawAmount");
+    let withdrawButton = document.getElementById("withdrawButton");
+    withdrawButton.onclick = function () {
+        let requestObject = {
+            'accountNumber': withdrawAccNr.value,
+            'amount': withdrawAmount.value
+        }
+        let url = "http://localhost:8080/withdraw";
+        let configuration = {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url, configuration)
+            .then(response => response.text())
+            .then(response => alert(response))
+    }
+</script>
+
+ <div class="jumbotron text-center">
+<h3> Transfer </h3>
+ </div>
+ <div class="container">
+     <div class="row">
+         <div class="col-sm-4">
+<h5> Insert data to transfer money: </h5>
+<table>
+    <tr>
+        <th>From (account number):</th>
+        <td><label>
+            <input id="firstAccNr">
+        </label></td>
+        <th>To (account number):</th>
+        <td><label>
+            <input id="secondAccNr">
+        </label></td>
+        <th>Amount:</th>
+        <td><label>
+            <input id="transferAmount">
+        </label></td>
+    </tr>
+</table>
+<button id="transferButton"> Transfer</button>
+         </div>
+     </div>
+ </div>
+<script>
+    let firstAccNr = document.getElementById("firstAccNr");
+    let secondAccNr = document.getElementById("secondAccNr");
+    let transferAmount = document.getElementById("transferAmount")
+    let transferButton = document.getElementById("transferButton");
+    transferButton.onclick = function () {
+        let requestObject = {
+            'accountNumber': secondAccNr.value,
+            'amount': transferAmount.value
+        }
+        let url = "http://localhost:8080/transferMoney/" + firstAccNr.value;
+        let configuration = {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestObject)
+        }
+        fetch(url, configuration)
+            .then(response => response.text())
+            .then(response => alert(response))
+    }
+</script>
+
+ <div class="jumbotron text-center">
+<h3> List of accounts </h3>
+ </div>
+ <div class="container">
+     <div class="row">
+         <div class="col-sm-4">
+<h5> Push "OK" to see list of all the customer accounts: </h5>
+<button id="listOfCustomersButton"> OK</button>
+         </div>
+     </div>
+ </div>
+
+<script>
+    let customerListButton = document.getElementById("listOfCustomersButton");
+    customerListButton.onclick = function () {
+        fetch("http://localhost:8080/accountList")
+            .then(response => response.text())
+            .then(response => alert(response))
+    }
+</script>
+
+ <div class="jumbotron text-center">
+<h3> Transactions </h3>
+ </div>
+ <div class="container">
+     <div class="row">
+         <div class="col-sm-4">
+<h5> Insert data to get list of transactions: </h5>
+<table>
+    <tr>
+        <th>Account number:</th>
+        <td><label>
+            <input id="transactionAccNr">
+        </label></td>
+    </tr>
+</table>
+<button id="listOfTransactionsButton"> Get transactions</button>
+         </div>
+     </div>
+ </div>
+<script>
+    let transactionsButton = document.getElementById("listOfTransactionsButton");
+    let transactionAccNr = document.getElementById("transactionAccNr");
+    transactionsButton.onclick = function () {
+        fetch("http://localhost:8080/listOfTransactions/" + transactionAccNr.value)
+            .then(response => response.text())
+            .then(response => alert(response))
+    }
+</script>
+
+
+</body>
+</html>
