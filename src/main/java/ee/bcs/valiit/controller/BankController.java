@@ -34,12 +34,14 @@ public class BankController {
     }
 
 
+    @CrossOrigin
     @PutMapping("/blockAccount")
     public String blockAccount(@RequestBody AccountRequest accountRequest) {
         bankAccountService.blockAccount(accountRequest);
         return accountRequest.getAccountNumber() + " is blocked.";
     }
 
+    @CrossOrigin
     @PutMapping("/unBlockAccount")
     public String unBlockAccount(@RequestBody AccountRequest accountRequest) {
         bankAccountService.unBlockAccount(accountRequest);
@@ -47,23 +49,27 @@ public class BankController {
 
     }
 
+    @CrossOrigin
     @GetMapping("getAccountBalance/{accountNr}")
     public String getBalance(@PathVariable("accountNr") String accountNr) {
         return "Your balance is " + bankAccountService.getBalance(accountNr);
 
     }
 
+    @CrossOrigin
     @PutMapping("/deposit")
     public String depositMoney(@RequestBody AccountRequest accountRequest) {
         return bankAccountService.depositMoney(accountRequest);
     }
 
 
+    @CrossOrigin
     @PutMapping("/withdraw")
     public String withdrawMoney(@RequestBody AccountRequest accountRequest) {
         return bankAccountService.withdrawMoney(accountRequest);
     }
 
+    @CrossOrigin
     @PutMapping("transferMoney/{firstAccountNr}")
     public String transfer(@PathVariable("firstAccountNr") String firstAccountNr,
                            @RequestBody AccountRequest accountRequest) {
@@ -72,11 +78,13 @@ public class BankController {
 
 
     // http://localhost:8080/accountList
+    @CrossOrigin
     @GetMapping("accountList")
     public List<AccountRequest> getAllAccounts() {
         return bankAccountService.getAllAccounts();
     }
 
+    @CrossOrigin
     @GetMapping("listOfTransactions/{accountNr}")
     public List<TransactionData> getTransactions(@PathVariable("accountNr") String accountNr) {
         return bankAccountService.getTransactions(accountNr);
