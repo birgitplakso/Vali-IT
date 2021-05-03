@@ -66,4 +66,15 @@
         <dropColumn tableName="bank_table" columnName="customer_id"/>
     </changeSet>
 
+    <changeSet id="3(29.04.21)" author="Birgit">
+    <createTable tableName="login_table">
+        <column name="username" type="text">
+            <constraints primaryKey="true"/>
+        </column>
+        <column name="password" type="text">
+            <constraints notNullConstraintName="true"/>
+        </column>
+    </createTable>
+    </changeSet>
+
 </databaseChangeLog>

@@ -64,7 +64,7 @@
             'accountNumber': accountNumber.value,
             'amount': balance.value,
         }
-        let url = "http://localhost:8080/createBankAccount";
+        let url = "http://localhost:8080/api/createBankAccount";
         let configuration = {
             method: 'POST',
             headers: {
@@ -105,7 +105,7 @@
     let getBalanceButton = document.getElementById("getBalance");
     let returnBalance=document.getElementById("accBalance")
     getBalanceButton.onclick = function () {
-        fetch("http://localhost:8080/getAccountBalance/" + accountNumberBalance.value)
+        fetch("http://localhost:8080/api/getAccountBalance/" + accountNumberBalance.value)
             .then(response => response.text())
             .then(function(response){
                 returnBalance.innerText=response
@@ -141,7 +141,7 @@
         let requestObject = {
             'accountNumber': blockAccountNumber.value,
         }
-        let url = "http://localhost:8080/blockAccount";
+        let url = "http://localhost:8080/api/blockAccount";
         let configuration = {
             method: 'PUT',
             headers: {
@@ -181,7 +181,7 @@
         let requestObject = {
             'accountNumber': unBlockAccountNr.value,
         }
-        let url = "http://localhost:8080/unBlockAccount";
+        let url = "http://localhost:8080/api/unBlockAccount";
         let configuration = {
             method: 'PUT',
             headers: {
@@ -226,7 +226,7 @@
             'accountNumber': depositAccNr.value,
             'amount': depositAmount.value
         }
-        let url = "http://localhost:8080/deposit";
+        let url = "http://localhost:8080/api/deposit";
         let configuration = {
             method: 'PUT',
             headers: {
@@ -277,7 +277,7 @@
             'accountNumber': withdrawAccNr.value,
             'amount': withdrawAmount.value
         }
-        let url = "http://localhost:8080/withdraw";
+        let url = "http://localhost:8080/api/withdraw";
         let configuration = {
             method: 'PUT',
             headers: {
@@ -328,7 +328,7 @@
             'accountNumber': secondAccNr.value,
             'amount': transferAmount.value
         }
-        let url = "http://localhost:8080/transferMoney/" + firstAccNr.value;
+        let url = "http://localhost:8080/api/transferMoney/" + firstAccNr.value;
         let configuration = {
             method: 'PUT',
             headers: {
@@ -357,7 +357,7 @@
 <script>
     let customerListButton = document.getElementById("listOfCustomersButton");
     customerListButton.onclick = function () {
-        fetch("http://localhost:8080/accountList")
+        fetch("http://localhost:8080/api/accountList")
             .then(response => response.text())
             .then(response => alert(response))
     }
@@ -386,7 +386,7 @@
     let transactionsButton = document.getElementById("listOfTransactionsButton");
     let transactionAccNr = document.getElementById("transactionAccNr");
     transactionsButton.onclick = function () {
-        fetch("http://localhost:8080/listOfTransactions/" + transactionAccNr.value)
+        fetch("http://localhost:8080/api/listOfTransactions/" + transactionAccNr.value)
             .then(response => response.text())
             .then(response => alert(response))
     }
