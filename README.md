@@ -19,9 +19,10 @@
 **Exceptions**:  
 **Hibernate, Spring Data**: https://drive.google.com/file/d/1eWV24l4MApKUK8S3d9s9NciMpFaTYjdT/view?usp=sharing    
 **Security**: https://drive.google.com/file/d/105CpgMW1lrLfVDRvNootiNYGuRcaN8iR/view?usp=sharing  
-**Scheduled Tasks**:  
+**SQL 2**: https://drive.google.com/file/d/1zruh1n6XKl96AxLAEODKHAzcgbvdRZLe/view?usp=sharing  
+**Scheduled Tasks**: https://drive.google.com/file/d/1CON_T2_pTCzNfGu1p1ln8NtxMnP7mSI0/view?usp=sharing  
+**Email**: https://drive.google.com/file/d/1sInjMF7oZWqGzYkHI9q59W1mCv1ixUcl/view?usp=sharing  
 **Testing**:   
-**JWT/Security**:  
 **Transactions**:  
 ### HTML / CSS
 **HTML, CSS**: https://drive.google.com/file/d/1iSoZQu-qyF94MYtQVu1i10pYyM1-k664/view?usp=sharing  
